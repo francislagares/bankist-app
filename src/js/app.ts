@@ -55,7 +55,7 @@ const btnLogin = document.querySelector('.login__btn');
 const btnTransfer: HTMLButtonElement = document.querySelector(
   '.form__btn--transfer',
 );
-
+const btnLoan: HTMLButtonElement = document.querySelector('.form__btn--loan');
 const btnClose: HTMLButtonElement = document.querySelector('.form__btn--close');
 const inputLoginUsername: HTMLInputElement = document.querySelector(
   '.login__input--user',
@@ -66,6 +66,9 @@ const inputTransferTo: HTMLInputElement =
   document.querySelector('.form__input--to');
 const inputTransferAmount: HTMLInputElement = document.querySelector(
   '.form__input--amount',
+);
+const inputLoanAmount: HTMLInputElement = document.querySelector(
+  '.form__input--loan-amount',
 );
 const inputCloseUsername: HTMLInputElement =
   document.querySelector('.form__input--user');
@@ -192,6 +195,22 @@ btnTransfer.addEventListener('click', e => {
     // Update UI
     updateUI(currentAccount);
   }
+});
+
+btnLoan.addEventListener('click', e => {
+  e.preventDefault();
+
+  const amount = +inputLoanAmount.value;
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movement
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+
+  inputLoanAmount.value = '';
 });
 
 btnClose.addEventListener('click', e => {
