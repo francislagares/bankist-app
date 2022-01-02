@@ -56,6 +56,7 @@ const btnTransfer: HTMLButtonElement = document.querySelector(
   '.form__btn--transfer',
 );
 
+const btnClose: HTMLButtonElement = document.querySelector('.form__btn--close');
 const inputLoginUsername: HTMLInputElement = document.querySelector(
   '.login__input--user',
 );
@@ -66,6 +67,10 @@ const inputTransferTo: HTMLInputElement =
 const inputTransferAmount: HTMLInputElement = document.querySelector(
   '.form__input--amount',
 );
+const inputCloseUsername: HTMLInputElement =
+  document.querySelector('.form__input--user');
+const inputClosePin: HTMLInputElement =
+  document.querySelector('.form__input--pin');
 
 const displayMovements = (movements: number[]) => {
   movements.forEach((mov, i: number) => {
@@ -186,5 +191,31 @@ btnTransfer.addEventListener('click', e => {
 
     // Update UI
     updateUI(currentAccount);
+  }
+});
+
+btnClose.addEventListener('click', e => {
+  e.preventDefault();
+
+  const accountToDelete = inputCloseUsername.value;
+  const pin = +inputClosePin.value;
+
+  // Clear input fields
+  inputCloseUsername.value = '';
+  inputClosePin.value = '';
+
+  if (
+    currentAccount.username === accountToDelete &&
+    currentAccount.pin === pin
+  ) {
+    const index = accounts.findIndex(
+      (acc: IAccount) => acc.username === currentAccount.username,
+    );
+
+    // Delete account
+    accounts.splice(index, 1);
+
+    // Hide Ui
+    containerApp.style.opacity = '0';
   }
 });
