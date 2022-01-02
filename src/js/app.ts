@@ -52,11 +52,20 @@ const containerApp: HTMLElement = document.querySelector('.app');
 const containerMovements = document.querySelector('.movements');
 
 const btnLogin = document.querySelector('.login__btn');
+const btnTransfer: HTMLButtonElement = document.querySelector(
+  '.form__btn--transfer',
+);
+
 const inputLoginUsername: HTMLInputElement = document.querySelector(
   '.login__input--user',
 );
 const inputLoginPin: HTMLInputElement =
   document.querySelector('.login__input--pin');
+const inputTransferTo: HTMLInputElement =
+  document.querySelector('.form__input--to');
+const inputTransferAmount: HTMLInputElement = document.querySelector(
+  '.form__input--amount',
+);
 
 const displayMovements = (movements: number[]) => {
   movements.forEach((mov, i: number) => {
@@ -74,10 +83,10 @@ const displayMovements = (movements: number[]) => {
   });
 };
 
-const calcDisplayBalance = (movements: number[]) => {
-  const balance = movements.reduce((acc, cur) => acc + cur, 0);
+const calcDisplayBalance = (acc: IAccount) => {
+  acc.balance = acc.movements.reduce((accum, cur) => accum + cur, 0);
 
-  labelBalance.textContent = `${balance}€`;
+  labelBalance.textContent = `${acc.balance}€`;
 };
 
 const calcDisplaySummary = (movements: number[], interestRate: number) => {
@@ -114,6 +123,17 @@ const createUsernames = (accs: IAccount[]) => {
 
 createUsernames(accounts);
 
+const updateUI = (acc: IAccount) => {
+  // Display movements
+  displayMovements(acc.movements);
+
+  // Display balance
+  calcDisplayBalance(acc);
+
+  // Display summary
+  calcDisplaySummary(acc.movements, acc.interestRate);
+};
+
 // EVENT HANDLERS
 let currentAccount: IAccount;
 
@@ -137,13 +157,34 @@ btnLogin.addEventListener('click', e => {
     inputLoginPin.value = '';
     inputLoginPin.blur();
 
-    // Display movements
-    displayMovements(currentAccount.movements);
+    // Update the UI
+    updateUI(currentAccount);
+  }
+});
 
-    // Display balance
-    calcDisplayBalance(currentAccount.movements);
+btnTransfer.addEventListener('click', e => {
+  e.preventDefault();
 
-    // Display summary
-    calcDisplaySummary(currentAccount.movements, currentAccount.interestRate);
+  const amount = +inputTransferAmount.value;
+  const receiverAcc: IAccount = accounts.find(
+    (acc: IAccount) => acc.username === inputTransferTo.value,
+  );
+
+  // Clear input fields
+  inputTransferAmount.value = '';
+  inputTransferTo.value = '';
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    // Doing the transfer
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
   }
 });
