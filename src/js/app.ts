@@ -57,26 +57,37 @@ const btnTransfer: HTMLButtonElement = document.querySelector(
 );
 const btnLoan: HTMLButtonElement = document.querySelector('.form__btn--loan');
 const btnClose: HTMLButtonElement = document.querySelector('.form__btn--close');
+const btnSort: HTMLButtonElement = document.querySelector('.btn--sort');
+
 const inputLoginUsername: HTMLInputElement = document.querySelector(
   '.login__input--user',
 );
+
 const inputLoginPin: HTMLInputElement =
   document.querySelector('.login__input--pin');
+
 const inputTransferTo: HTMLInputElement =
   document.querySelector('.form__input--to');
+
 const inputTransferAmount: HTMLInputElement = document.querySelector(
   '.form__input--amount',
 );
 const inputLoanAmount: HTMLInputElement = document.querySelector(
   '.form__input--loan-amount',
 );
+
 const inputCloseUsername: HTMLInputElement =
   document.querySelector('.form__input--user');
+
 const inputClosePin: HTMLInputElement =
   document.querySelector('.form__input--pin');
 
-const displayMovements = (movements: number[]) => {
-  movements.forEach((mov, i: number) => {
+const displayMovements = (movements: number[], sorted = false) => {
+  containerMovements.innerHTML = '';
+
+  const movs = sorted ? [...movements].sort((a, b) => a - b) : movements;
+
+  movs.forEach((mov, i: number) => {
     const movementType = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -237,4 +248,13 @@ btnClose.addEventListener('click', e => {
     // Hide Ui
     containerApp.style.opacity = '0';
   }
+});
+
+let sorted = false;
+btnSort.addEventListener('click', e => {
+  e.preventDefault();
+
+  displayMovements(currentAccount.movements, !sorted);
+
+  sorted = !sorted;
 });
