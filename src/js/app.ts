@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /// //////////////////////////////////////////////
 /// //////////////////////////////////////////////
 // BANKIST APP
@@ -58,6 +59,7 @@ const labelBalance = document.querySelector('.balance__value');
 const labelSumIn = document.querySelector('.summary__value--in');
 const labelSumOut = document.querySelector('.summary__value--out');
 const labelSumInterest = document.querySelector('.summary__value--interest');
+const labelTimer = document.querySelector('.timer');
 
 const containerApp: HTMLElement = document.querySelector('.app');
 const containerMovements = document.querySelector('.movements');
@@ -210,13 +212,40 @@ const updateUI = (acc: IAccount) => {
   // Display summary
   calcDisplaySummary(acc);
 };
+/// /////// 5 minute Log Out Timer
+const startLogOutTimer = function () {
+  // set time to 5 minutes
+  let time = 300;
+
+  // With timers TypeScript compiles errors because
+  // somehow the NodeJS.Timer type is inferred by default.
+  // So you need to change to window.setInterval to specify
+  // you're not using NodeJS and the DOM type should be used instead.
+  const timer = window.setInterval(() => {
+    // call the timer every second
+    const min = String(Math.trunc(time / 60)).padStart(2, '0');
+    const sec = String(time % 60).padStart(2, '0');
+
+    // print remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // decrease time by 1 second
+    time--;
+
+    // when 0 seconds, log out user
+    if (time === -1) {
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = '0';
+    }
+  }, 1000);
+
+  return timer;
+};
 
 // EVENT HANDLERS
 let currentAccount: IAccount;
-
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = '100';
+let timer: number;
 
 btnLogin.addEventListener('click', e => {
   e.preventDefault();
@@ -243,16 +272,18 @@ btnLogin.addEventListener('click', e => {
       year: 'numeric',
     };
 
-    // const locale = navigator.language;
-
     labelDate.textContent = new Intl.DateTimeFormat(
       currentAccount.locale,
       options,
     ).format(now);
+
     // Clear input fields
     inputLoginUsername.value = '';
     inputLoginPin.value = '';
     inputLoginPin.blur();
+
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
 
     // Update the UI
     updateUI(currentAccount);
@@ -287,6 +318,10 @@ btnTransfer.addEventListener('click', e => {
 
     // Update UI
     updateUI(currentAccount);
+
+    // Reset Timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
 });
 
@@ -296,14 +331,20 @@ btnLoan.addEventListener('click', e => {
   const amount = Math.floor(+inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(() => {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    // Create transfer date
-    currentAccount.movementsDates.push(new Date().toISOString());
+      // Create transfer date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+
+      // Reset Timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
+    }, 3000);
   }
 
   inputLoanAmount.value = '';
