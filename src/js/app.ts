@@ -109,6 +109,15 @@ const formatMovementDate = (date: Date, locale: string) => {
   return new Intl.DateTimeFormat(locale).format(date);
 };
 
+const formatCurrency = (value: number, locale: string, currency: string) => {
+  const formattedMov = new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+  }).format(value);
+
+  return formattedMov;
+};
+
 const displayMovements = (acc: IAccount, sorted = false) => {
   containerMovements.innerHTML = '';
 
@@ -122,13 +131,15 @@ const displayMovements = (acc: IAccount, sorted = false) => {
     const date = new Date(acc.movementsDates[i]);
     const displayDate = formatMovementDate(date, acc.locale);
 
+    const formattedMov = formatCurrency(mov, acc.locale, acc.currency);
+
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${movementType}">
         ${i + 1} ${movementType.toUpperCase()}
         </div>
         <div class='movements_date'>${displayDate}</div>
-        <div class="movements__value">${mov.toFixed(2)}€</div>
+        <div class="movements__value">${formattedMov}</div>
       </div>`;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -138,29 +149,43 @@ const displayMovements = (acc: IAccount, sorted = false) => {
 const calcDisplayBalance = (acc: IAccount) => {
   acc.balance = acc.movements.reduce((accum, cur) => accum + cur, 0);
 
-  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
+  const formattedMov = formatCurrency(acc.balance, acc.locale, acc.currency);
+
+  labelBalance.textContent = `${formattedMov}`;
 };
 
-const calcDisplaySummary = (movements: number[], interestRate: number) => {
-  const incomes = movements
+const calcDisplaySummary = (acc: IAccount) => {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
-    .reduce((acc, cur) => acc + cur, 0);
+    .reduce((accu, cur) => accu + cur, 0);
 
-  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
+  labelSumIn.textContent = `${formatCurrency(
+    incomes,
+    acc.locale,
+    acc.currency,
+  )}`;
 
-  const outcomes = movements
+  const outcomes = acc.movements
     .filter(mov => mov < 0)
-    .reduce((acc, cur) => acc + cur, 0);
+    .reduce((accu, cur) => accu + cur, 0);
 
-  labelSumOut.textContent = `${Math.abs(outcomes).toFixed(2)}€`;
+  labelSumOut.textContent = `${formatCurrency(
+    Math.abs(outcomes),
+    acc.locale,
+    acc.currency,
+  )}`;
 
-  const interests = movements
+  const interests = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * interestRate) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .filter(int => int >= 1)
-    .reduce((acc, cur) => acc + cur);
+    .reduce((accu, cur) => accu + cur);
 
-  labelSumInterest.textContent = `${interests.toFixed(2)}€`;
+  labelSumInterest.textContent = `${formatCurrency(
+    interests,
+    acc.locale,
+    acc.currency,
+  )}`;
 };
 
 const createUsernames = (accs: IAccount[]) => {
@@ -183,7 +208,7 @@ const updateUI = (acc: IAccount) => {
   calcDisplayBalance(acc);
 
   // Display summary
-  calcDisplaySummary(acc.movements, acc.interestRate);
+  calcDisplaySummary(acc);
 };
 
 // EVENT HANDLERS
