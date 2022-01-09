@@ -1460,9 +1460,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/cli@npm:^16.0.1":
-  version: 16.0.1
-  resolution: "@commitlint/cli@npm:16.0.1"
+"@commitlint/cli@npm:^16.0.2":
+  version: 16.0.2
+  resolution: "@commitlint/cli@npm:16.0.2"
   dependencies:
     "@commitlint/format": ^16.0.0
     "@commitlint/lint": ^16.0.0
@@ -1475,7 +1475,7 @@ __metadata:
     yargs: ^17.0.0
   bin:
     commitlint: cli.js
-  checksum: a4ec182911a6a26cd4e5ad878089075ca96c417aac538b6bb42a4e7fd9c96e1c73ef4c9034c153f017ce28bf1c2ca837f403034e6462910f4c51a383aba3d5ee
+  checksum: 20760e0f8d54cfffad8a3c24ab4052b815d4545e2237f6b2c54a9a9a1190bf69adcff49b22ba665ae5e3b758b17b7a9dfb162d49d8b3926a756f60a314edd5e3
   languageName: node
   linkType: hard
 
@@ -6562,15 +6562,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-loader@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "html-loader@npm:3.0.1"
+"html-loader@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "html-loader@npm:3.1.0"
   dependencies:
     html-minifier-terser: ^6.0.2
     parse5: ^6.0.1
   peerDependencies:
     webpack: ^5.0.0
-  checksum: 9963912f20c14ac2303d262778ea230e66bb7953db004ae55787a55ae4baecc350ce6ddb89ff8bdf5d3cf715ee8460545c2d2109304be3246bbad2123f7c9a57
+  checksum: 4c383d103c10465964924f31eeb2876df941df6515b52a7be517eb01d59ff8f5ae344a3ca428469029c999c73f5ae5dac3431701886ca16617a670a0991bd3a2
   languageName: node
   linkType: hard
 
@@ -7950,9 +7950,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^12.1.5":
-  version: 12.1.5
-  resolution: "lint-staged@npm:12.1.5"
+"lint-staged@npm:^12.1.7":
+  version: 12.1.7
+  resolution: "lint-staged@npm:12.1.7"
   dependencies:
     cli-truncate: ^3.1.0
     colorette: ^2.0.16
@@ -7969,7 +7969,7 @@ __metadata:
     yaml: ^1.10.2
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: e4d64e97769faf45adad9898c843ed8ef495469fc3edef0b8daff834ddb504ab47e33579763f8d85cbba6db993bd5cd86ac0bcaf92f6fd7486d4fb9a5fe774c6
+  checksum: 3d0757706c8b0ca3f004bb2ffa89a9d5fc97ccdebfa4cde29a9636c661538780e194b99cbc5e4b8b89b13986187b33c97e009b09014511bbd45ee05ba557d0eb
   languageName: node
   linkType: hard
 
@@ -8533,14 +8533,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^2.4.5":
-  version: 2.4.5
-  resolution: "mini-css-extract-plugin@npm:2.4.5"
+"mini-css-extract-plugin@npm:^2.4.6":
+  version: 2.4.6
+  resolution: "mini-css-extract-plugin@npm:2.4.6"
   dependencies:
     schema-utils: ^4.0.0
   peerDependencies:
     webpack: ^5.0.0
-  checksum: 09ad56ac33fd960c6a645a2a18b0fee22c34c8e48e91fc48acc5ac3b9c101a5e9ea50d168b94c9fcdf571265271f6e4dd4fea835b2242907d4311b170aff322f
+  checksum: 7eb3dcbf1e46d5a9cdb6ed1c2b687f6ad5a739e420208511b01f59d45d69328fa7ba57aa44c9b3f7beff8e27cd9fe5188ecd636b4c33f9199ea3bdb9f4a5218e
   languageName: node
   linkType: hard
 
@@ -13424,7 +13424,7 @@ __metadata:
     "@babel/core": ^7.16.7
     "@babel/plugin-proposal-class-properties": ^7.16.7
     "@babel/preset-env": ^7.16.7
-    "@commitlint/cli": ^16.0.1
+    "@commitlint/cli": ^16.0.2
     "@commitlint/config-conventional": ^16.0.0
     "@types/express": ^4.17.13
     "@typescript-eslint/eslint-plugin": ^5.9.0
@@ -13444,11 +13444,11 @@ __metadata:
     eslint-plugin-import: ^2.25.4
     eslint-plugin-prettier: ^4.0.0
     express: ^4.17.2
-    html-loader: ^3.0.1
+    html-loader: ^3.1.0
     html-webpack-plugin: ^5.5.0
     husky: ^7.0.4
-    lint-staged: ^12.1.5
-    mini-css-extract-plugin: ^2.4.5
+    lint-staged: ^12.1.7
+    mini-css-extract-plugin: ^2.4.6
     node-sass: ^7.0.1
     postcss-loader: ^6.2.1
     postcss-preset-env: ^7.2.0
