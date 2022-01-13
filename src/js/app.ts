@@ -13,7 +13,7 @@ interface IAccount {
 
 // Data
 const account1 = {
-  owner: 'Jonas Schmedtmann',
+  owner: 'John',
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
   pin: 1111,
@@ -32,7 +32,7 @@ const account1 = {
 };
 
 const account2 = {
-  owner: 'Jessica Davis',
+  owner: 'Jessica',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
@@ -53,7 +53,7 @@ const account2 = {
 const accounts = [account1, account2];
 
 // DOM Elements
-const labelWelcome = document.querySelector('.welcome');
+const labelWelcome = document.querySelector('.js-welcome');
 const labelDate = document.querySelector('.date');
 const labelBalance = document.querySelector('.balance__value');
 const labelSumIn = document.querySelector('.summary__value--in');
@@ -63,6 +63,8 @@ const labelTimer = document.querySelector('.timer');
 
 const containerApp: HTMLElement = document.querySelector('.app');
 const containerMovements = document.querySelector('.movements');
+const loginContainer: HTMLDivElement =
+  document.querySelector('.login-container');
 
 const btnLogin = document.querySelector('.login__btn');
 const btnTransfer: HTMLButtonElement = document.querySelector(
@@ -94,6 +96,11 @@ const inputCloseUsername: HTMLInputElement =
 
 const inputClosePin: HTMLInputElement =
   document.querySelector('.form__input--pin');
+
+// removing preload class to make transition work
+window.addEventListener('load', () => {
+  document.body.classList.remove('preload');
+});
 
 /// //////////////////////////////////////////////////////
 /// / FUNCTIONS
@@ -190,13 +197,20 @@ const calcDisplaySummary = (acc: IAccount) => {
   )}`;
 };
 
-const createUsernames = (accs: IAccount[]) => {
+/* const createUsernames = (accs: IAccount[]) => {
   accs.forEach(acc => {
     acc.username = acc.owner
       .toLowerCase()
       .split(' ')
       .map(name => name[0])
       .join('');
+  });
+}; */
+
+// Creating usernames
+const createUsernames = function (accs: IAccount[]) {
+  accs.forEach(acc => {
+    acc.username = acc.owner.toLowerCase();
   });
 };
 
@@ -237,6 +251,8 @@ const startLogOutTimer = function () {
       clearInterval(timer);
       labelWelcome.textContent = 'Log in to get started';
       containerApp.style.opacity = '0';
+      loginContainer.style.visibility = 'visible';
+      loginContainer.style.opacity = '1';
     }
   }, 1000);
 
@@ -255,12 +271,16 @@ btnLogin.addEventListener('click', e => {
   );
 
   if (currentAccount?.pin === +inputLoginPin.value) {
+    loginContainer.style.visibility = 'hidden';
+    loginContainer.style.opacity = '0';
+
     // Display the UI and welcome message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
     }`;
 
     containerApp.style.opacity = '100';
+    containerApp.style.visibility = 'visible';
 
     // Create current date and time
     const now = new Date();
@@ -383,4 +403,13 @@ btnSort.addEventListener('click', e => {
   displayMovements(currentAccount, !sorted);
 
   sorted = !sorted;
+});
+
+// Log out
+document.querySelector('.js-logout').addEventListener('click', () => {
+  containerApp.style.opacity = '0';
+  containerApp.style.visibility = 'hidden';
+
+  loginContainer.style.visibility = 'visible';
+  loginContainer.style.opacity = '1';
 });
