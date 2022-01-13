@@ -15,20 +15,15 @@
     "stylelint": "stylelint **/*.{css,scss,tsx,js} --fix",
     "postinstall": "husky install"
   },
-  "keywords": [
-    "webpack",
-    "webpack 5",
-    "webpack boilerplate"
-  ],
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
-    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-env": "^7.16.8",
     "@commitlint/cli": "^16.0.2",
     "@commitlint/config-conventional": "^16.0.0",
     "@types/express": "^4.17.13",
-    "@typescript-eslint/eslint-plugin": "^5.9.0",
-    "@typescript-eslint/parser": "^5.9.0",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "commitizen": "^4.2.4",
@@ -48,10 +43,10 @@
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.7",
-    "mini-css-extract-plugin": "^2.4.6",
+    "mini-css-extract-plugin": "^2.4.7",
     "node-sass": "^7.0.1",
     "postcss-loader": "^6.2.1",
-    "postcss-preset-env": "^7.2.0",
+    "postcss-preset-env": "^7.2.3",
     "prettier": "^2.5.1",
     "prettier-stylelint": "^0.4.2",
     "sass": "^1.48.0",
@@ -65,9 +60,9 @@
     "stylelint-scss": "^4.1.0",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.4",
-    "webpack": "^5.65.0",
+    "webpack": "^5.66.0",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.2",
+    "webpack-dev-server": "^4.7.3",
     "webpack-merge": "^5.8.0"
   },
   "config": {
@@ -75,5 +70,9 @@
       "path": "cz-conventional-changelog"
     }
   },
-  "packageManager": "yarn@3.1.0"
+  "engines": {
+    "node": ">=16.13.0",
+    "npm": ">=8.3.0"
+  },
+  "packageManager": "yarn@3.1.1"
 }
