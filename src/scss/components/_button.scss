@@ -1,0 +1,33 @@
+.btn {
+  &--sort {
+    margin-left: auto;
+    border: none;
+    background: none;
+    font-size: 1.3rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      color: #777;
+    }
+  }
+
+  &--logout {
+    grid-column: 1 / -1;
+    justify-self: center;
+    background: #ffcb03;
+    border: none;
+    color: #292020;
+    font-size: 1.6rem;
+    padding: 1.5rem 3rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #ffb003;
+    }
+  }
+}

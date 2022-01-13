@@ -1,0 +1,50 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+.preload * {
+  transition: none !important;
+}
+
+body {
+  color: #444;
+  background-color: #f3f3f3;
+  height: 100vh;
+  // padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// custom scrollbar
+::-webkit-scrollbar {
+  width: 2rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 2rem;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
