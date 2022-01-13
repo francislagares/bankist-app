@@ -2,4 +2,4 @@
 import '@/js/app';
 
 // Test import of styles
-import '@/styles/index.scss';
+import '@/scss/index.scss';
